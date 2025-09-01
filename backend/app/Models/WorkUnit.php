@@ -14,7 +14,21 @@ class WorkUnit extends Model
 
     protected $fillable = [
         'unit_name',
+        'parent_id',
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo(WorkUnit::class, 'parent_id');
+    }
+
+    /**
+     * Relasi ke children (anak-anak)
+     */
+    public function children()
+    {
+        return $this->hasMany(WorkUnit::class, 'parent_id');
+    }
 
     public function employeeDetails()
     {

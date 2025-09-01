@@ -28,11 +28,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function me()
-    {
-        return response()->json(Auth::guard('api')->user());
-    }
-
     public function logout()
     {
         Auth::guard('api')->logout();

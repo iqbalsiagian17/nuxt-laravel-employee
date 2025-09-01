@@ -149,6 +149,13 @@ class EmployeeController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $employee = Employee::with(['religion', 'employeeDetails.position', 'employeeDetails.workUnit'])
+            ->findOrFail($id);
+
+        return response()->json($employee);
+    }
 
     // h. Hapus Data Pegawai
     public function destroy($id)

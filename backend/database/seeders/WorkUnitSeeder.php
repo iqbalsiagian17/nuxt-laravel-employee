@@ -12,10 +12,10 @@ class WorkUnitSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        // Menambahkan data dummy untuk WorkUnit
-        for ($i = 0; $i < 10; $i++) {
+        // Tambah beberapa unit random lain tanpa parent
+        for ($k = 1; $k <= 4; $k++) {
             WorkUnit::create([
-                'unit_name' => $faker->word,
+                'unit_name' => $faker->company,
             ]);
         }
     }
