@@ -24,7 +24,7 @@
     <div v-else>
       <DataTable
         :columns="columns"
-        :rows="filteredUnits"
+        :rows="unitsWithNo"
         :perPage="10"
         :actions="tableActions"
       />
@@ -79,9 +79,16 @@ const filteredUnits = computed(() =>
   )
 );
 
+const unitsWithNo = computed(() =>
+  filteredUnits.value.map((r, index) => ({
+    ...r,
+    no: index + 1
+  }))
+);
+
 // 👉 Columns
 const columns = [
-  { key: "id", label: "ID" },
+  { key: "no", label: "No" },
   { key: "unit_name", label: "Nama Unit Kerja" }
 ];
 
@@ -101,8 +108,8 @@ const deleteUnit = async (id) => {
 
 // 👉 Actions table
 const tableActions = [
-  { name: "edit", label: "✏️ Edit", handler: row => goEdit(row.id) },
-  { name: "delete", label: "🗑️ Hapus", handler: row => deleteUnit(row.id) }
+  { name: "edit", label: "Edit", handler: row => goEdit(row.id) },
+  { name: "delete", label: "Hapus", handler: row => deleteUnit(row.id) }
 ];
 
 // 👉 Navigasi

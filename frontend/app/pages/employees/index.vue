@@ -1,17 +1,17 @@
 <template>
   <div class="container mt-5">
-    <h1 class="h3 mb-4">Daftar Employees</h1>
+    <h1 class="h3 mb-4">Daftar Pegawai</h1>
 
     <!-- Toolbar -->
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
       <div class="d-flex gap-2">
-        <button class="btn btn-secondary" @click="goBack">← Back to Dashboard</button>
-        <button class="btn btn-success" @click="goCreate">+ Create Employee</button>
+        <button class="btn btn-secondary" @click="goBack">← Kembali ke Dashboard</button>
+        <button class="btn btn-success" @click="goCreate">+ Tambah Pegawai</button>
         <button class="btn btn-outline-primary" @click="printPdf">🖨 Cetak PDF</button>
       </div>
 
       <div class="d-flex gap-2">
-        <input type="text" v-model="search" placeholder="Search nama..." class="form-control" />
+        <input type="text" v-model="search" placeholder="Cari nama..." class="form-control" />
         <select v-model="selectedUnit" class="form-select">
           <option value="">Semua Unit</option>
           <option v-for="unit in workUnits" :key="unit" :value="unit">{{ unit }}</option>
@@ -19,17 +19,20 @@
       </div>
     </div>
 
-    <div v-if="loading" class="alert alert-info">Loading...</div>
+    <!-- Tabel Data -->
+    <div v-if="loading" class="alert alert-info">Memuat data...</div>
+    <div v-if="message" class="alert alert-danger">{{ message }}</div>
     <div v-else>
       <DataTable
         :columns="columns"
-        :rows="filteredEmployees"
+        :rows="employeesWithNo"
         :perPage="10"
         :actions="tableActions"
       />
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
@@ -76,14 +79,22 @@ const filteredEmployees = computed(() =>
   })
 );
 
+  const employeesWithNo = computed(() =>
+    filteredEmployees.value.map((emp, index) => ({
+      ...emp,
+      no: index + 1,
+      gender_display: emp.gender === "M" ? "L" : emp.gender === "F" ? "P" : "-"
+    }))
+  );
+
 const columns = [
-  { key: "id", label: "ID" },
+  { key: "no", label: "No." }, 
   { key: "employee_number", label: "NIP" },
   { key: "full_name", label: "Nama" },
   { key: "birth_place", label: "Tempat Lahir" },
   { key: "address", label: "Alamat" },
   { key: "birth_date", label: "Tgl Lahir" },
-  { key: "gender", label: "L/P" },
+  { key: "gender_display", label: "L/P" },
   { key: "employee_details.rank", label: "Gol" },
   { key: "employee_details.echelon", label: "Eselon" },
   { key: "employee_details.position.position_name", label: "Jabatan" },
@@ -111,9 +122,9 @@ const deleteEmployee = async (id) => {
 };
 
 const tableActions = [
-  { name: "view", label: "👁️ View", handler: row => goDetail(row.id) },
-  { name: "edit", label: "✏️ Edit", handler: row => goEdit(row.id) },
-  { name: "delete", label: "🗑️ Hapus", handler: row => deleteEmployee(row.id) }
+  { name: "view", label: "View", handler: row => goDetail(row.id) },
+  { name: "edit", label: "Edit", handler: row => goEdit(row.id) },
+  { name: "delete", label: " Hapus", handler: row => deleteEmployee(row.id) }
 ];
 
 const goBack = () => router.push("/dashboard");
@@ -127,24 +138,37 @@ const printPdf = async () => {
   const { jsPDF } = await import("jspdf");
   const autoTable = (await import("jspdf-autotable")).default;
 
-  const doc = new jsPDF();
+  // Buat dokumen landscape
+  const doc = new jsPDF({
+    orientation: "landscape", // <-- ini yang membuat landscape
+    unit: "pt",
+    format: "a4"
+  });
+
   doc.setFontSize(14);
-  doc.text("Daftar Employees", 14, 15);
+  doc.text("DAFTAR PEGAWAI", 40, 30);
 
   const tableColumn = columns.map(c => c.label);
-  const tableRows = filteredEmployees.value.map(emp =>
-    columns.map(c => c.key.split(".").reduce((acc, part) => acc?.[part] ?? "-", emp))
-  );
+
+  const tableRows = filteredEmployees.value.map((emp, index) => {
+    return columns.map((c, colIndex) => {
+      if (colIndex === 0) return index + 1; // No. urut
+      if (c.key === "gender") return emp.gender === "M" ? "L" : emp.gender === "F" ? "P" : "-";
+      return c.key.split(".").reduce((acc, part) => acc?.[part] ?? "-", emp);
+    });
+  });
 
   autoTable(doc, {
-    startY: 20,
+    startY: 50,
     head: [tableColumn],
     body: tableRows,
-    styles: { fontSize: 8 },
-    headStyles: { fillColor: [52, 73, 94] }
+    styles: { fontSize: 10 }, // sedikit lebih besar karena landscape
+    headStyles: { fillColor: [52, 73, 94] },
+    theme: "grid"
   });
 
   doc.save("daftar-employees.pdf");
 };
+
 
 </script>

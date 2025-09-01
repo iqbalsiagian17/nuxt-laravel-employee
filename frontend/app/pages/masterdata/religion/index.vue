@@ -5,7 +5,7 @@
     <!-- Toolbar -->
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
       <div class="d-flex gap-2">
-        <button class="btn btn-secondary" @click="goBack">← Back to Dashboard</button>
+        <button class="btn btn-secondary" @click="goBack">← Kembali Dashboard</button>
         <button class="btn btn-success" @click="goCreate">+ Tambah Agama</button>
       </div>
 
@@ -24,7 +24,7 @@
     <div v-else>
       <DataTable
         :columns="columns"
-        :rows="filteredReligions"
+        :rows="religionsWithNo"
         :perPage="10"
         :actions="tableActions"
       />
@@ -66,9 +66,16 @@ const filteredReligions = computed(() =>
   )
 );
 
+const religionsWithNo = computed(() =>
+  filteredReligions.value.map((r, index) => ({
+    ...r,
+    no: index + 1
+  }))
+);
+
 // 👉 Columns
 const columns = [
-  { key: "id", label: "ID" },
+  { key: "no", label: "No" }, // nomor urut
   { key: "name", label: "Nama Agama" }
 ];
 
@@ -88,8 +95,8 @@ const deleteReligion = async (id) => {
 
 // 👉 Actions table
 const tableActions = [
-  { name: "edit", label: "✏️ Edit", handler: row => goEdit(row.id) },
-  { name: "delete", label: "🗑️ Hapus", handler: row => deleteReligion(row.id) }
+  { name: "edit", label: "Edit", handler: row => goEdit(row.id) },
+  { name: "delete", label: "Hapus", handler: row => deleteReligion(row.id) }
 ];
 
 // 👉 Navigasi

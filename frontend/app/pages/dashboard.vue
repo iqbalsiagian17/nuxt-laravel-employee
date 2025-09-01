@@ -2,16 +2,16 @@
   <div class="container mt-5">
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="h3 fw-bold"> Dashboard</h1>
-      <button class="btn btn-danger" @click="logout">Logout</button>
+      <h1 class="h3 fw-bold">Dashboard</h1>
+      <button class="btn btn-danger" @click="logout">Keluar</button>
     </div>
 
-    <!-- Welcome Section -->
+    <!-- Bagian Sambutan -->
     <div v-if="user" class="alert alert-success shadow-sm rounded-3">
       Selamat datang kembali, <strong>{{ user.name }}</strong>! 🎉
     </div>
 
-    <!-- Employees Section -->
+    <!-- Bagian Pegawai -->
     <h4 class="mt-4 mb-3">Pegawai</h4>
     <div class="row g-4">
       <div class="col-md-4">
@@ -20,18 +20,18 @@
             <div class="mb-3">
               <i class="bi bi-people-fill text-primary" style="font-size: 2.5rem;"></i>
             </div>
-            <h5 class="card-title fw-bold">Employees</h5>
+            <h5 class="card-title fw-bold">Pegawai</h5>
             <p class="card-text text-muted">Lihat dan kelola data pegawai.</p>
-            <button class="btn btn-primary" @click="goToEmployees">Go to Employees</button>
+            <button class="btn btn-primary" @click="goToEmployees">Kelola Pegawai</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Master Data Section -->
+    <!-- Bagian Master Data -->
     <h4 class="mt-5 mb-3">Master Data</h4>
     <div class="row g-4">
-      <!-- Religion -->
+      <!-- Agama -->
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100">
           <div class="card-body text-center">
@@ -40,12 +40,12 @@
             </div>
             <h5 class="card-title fw-bold">Agama</h5>
             <p class="card-text text-muted">Lihat dan kelola data agama.</p>
-            <button class="btn btn-success" @click="goToReligion">Go to Agama</button>
+            <button class="btn btn-success" @click="goToReligion">Kelola Agama</button>
           </div>
         </div>
       </div>
 
-      <!-- Position -->
+      <!-- Jabatan -->
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100">
           <div class="card-body text-center">
@@ -54,12 +54,12 @@
             </div>
             <h5 class="card-title fw-bold">Jabatan</h5>
             <p class="card-text text-muted">Lihat dan kelola data jabatan.</p>
-            <button class="btn btn-warning text-white" @click="goToPosition">Go to Jabatan</button>
+            <button class="btn btn-warning text-white" @click="goToPosition">Kelola Jabatan</button>
           </div>
         </div>
       </div>
 
-      <!-- Unit Work -->
+      <!-- Unit Kerja -->
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100">
           <div class="card-body text-center">
@@ -67,14 +67,15 @@
               <i class="bi bi-building text-info" style="font-size: 2.5rem;"></i>
             </div>
             <h5 class="card-title fw-bold">Unit Kerja</h5>
-            <p class="card-text text-muted">Lihat dan kelola data Unit Kerja.</p>
-            <button class="btn btn-info text-white" @click="goToUnitWork">Go to Unit Kerja</button>
+            <p class="card-text text-muted">Lihat dan kelola data unit kerja.</p>
+            <button class="btn btn-info text-white" @click="goToUnitWork">Kelola Unit Kerja</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 
 <script setup>
 import { useRouter } from "vue-router";
@@ -108,7 +109,7 @@ const logout = () => {
 const goToEmployees = () => router.push("/employees");
 const goToReligion = () => router.push("/masterdata/religion");
 const goToPosition = () => router.push("/masterdata/position");
-const goToUnitWork = () => router.push("/masterdata/unit");
+const goToUnitWork = () => router.push("/masterdata/unit-work");
 </script>
 
 <style>

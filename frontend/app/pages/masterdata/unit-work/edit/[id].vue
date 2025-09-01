@@ -1,26 +1,31 @@
 <template>
   <div class="container mt-4">
-    <h2 class="mb-4">Edit Unit Kerja</h2>
+    <div v-if="loaded" class="card shadow-sm p-4">
+      <h2 class="mb-4">Edit Unit Kerja</h2>
 
-    <form v-if="loaded" @submit.prevent="handleSubmit">
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Nama Unit Kerja</label>
-          <input v-model="form.unit_name" type="text" class="form-control" required />
+      <form @submit.prevent="handleSubmit">
+        <div class="row g-3">
+          <!-- Nama Unit Kerja -->
+          <div class="col-md-6">
+            <label class="form-label">Nama Unit Kerja</label>
+            <input v-model="form.unit_name" type="text" class="form-control" required />
+          </div>
         </div>
-      </div>
 
-      <button class="btn btn-primary" type="submit">Update</button>
-      <button class="btn btn-secondary ms-2" type="button" @click="goBack">Batal</button>
-    </form>
-
+        <!-- Tombol Update & Batal -->
+        <div class="mt-4 d-flex justify-content-end gap-2">
+          <button class="btn btn-primary" type="submit">Update</button>
+          <button class="btn btn-secondary" type="button" @click="goBack">Batal</button>
+        </div>
+      </form>
+    </div>
     <div v-if="message" class="alert alert-info mt-3">
       {{ message }}
     </div>
-
-    <div v-if="!loaded" class="alert alert-secondary">Loading...</div>
+    <div v-if="!loaded" class="alert alert-secondary mt-3">Loading...</div>
   </div>
 </template>
+
 
 <script setup>
 import { ref, onMounted } from "vue"
