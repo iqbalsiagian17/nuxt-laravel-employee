@@ -4,20 +4,22 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Religion;
-use Faker\Factory as Faker;
 
 class ReligionSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        $faker = Faker::create();
-
-        // Menambahkan data dummy untuk Religion
-        $religions = ['Islam', 'Christian', 'Hindu', 'Buddhist', 'Catholic'];
+        $religions = [
+            'Islam',
+            'Kristen',
+            'Katolik',
+            'Hindu',
+            'Buddha',
+        ];
 
         foreach ($religions as $religion) {
-            Religion::create([
-                'name' => $religion,
+            Religion::firstOrCreate([
+                'name' => $religion
             ]);
         }
     }

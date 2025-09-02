@@ -72,20 +72,19 @@ const workUnits = computed(() => {
 
 const filteredEmployees = computed(() =>
   employees.value.filter(emp => {
-    const matchSearch = emp.full_name?.toLowerCase().includes(search.value.toLowerCase());
-    const matchUnit =
-      !selectedUnit.value || emp.employee_details?.work_unit?.unit_name === selectedUnit.value;
+    const matchSearch = !search.value || emp.full_name?.toLowerCase().includes(search.value.toLowerCase());
+    const matchUnit = !selectedUnit.value || emp.employee_details?.work_unit?.unit_name === selectedUnit.value;
     return matchSearch && matchUnit;
   })
 );
 
-  const employeesWithNo = computed(() =>
-    filteredEmployees.value.map((emp, index) => ({
-      ...emp,
-      no: index + 1,
-      gender_display: emp.gender === "M" ? "L" : emp.gender === "F" ? "P" : "-"
-    }))
-  );
+const employeesWithNo = computed(() =>
+  filteredEmployees.value.map((emp, index) => ({
+    ...emp,
+    no: index + 1,
+    gender_display: emp.gender === "M" ? "L" : emp.gender === "F" ? "P" : "-"
+  }))
+);
 
 const columns = [
   { key: "no", label: "No." }, 

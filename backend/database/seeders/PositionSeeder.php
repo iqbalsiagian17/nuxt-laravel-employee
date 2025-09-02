@@ -4,18 +4,31 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Position;
-use Faker\Factory as Faker;
 
 class PositionSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        $faker = Faker::create();
+        $positions = [
+            'Kepala Sekretariat Utama',
+            'Penyusun laporan keuangan',
+            'Surveyor Pemetaan Pertama',
+            'Analis Data Survei dan Pemetaan',
+            'Perancang Per-UUan Utama',
+            'Kepala Biro Perencanaan, Kepegawaian dan',
+            'Widyaiswara Utama',
+            'Analis Kepegawaian Madya',
+            'Kepala Sub Bidang Kerjasama dan Pelayanan Riset, DKP',
+            'Analis Hukum',
+            'Peneliti Pertama',
+            'Surveyor Pemetaan Muda',
+            'Analis Jabatan',
+            'Kepala Subbag Kepegawaian',
+        ];
 
-        // Menambahkan data dummy untuk Position
-        for ($i = 0; $i < 10; $i++) {
-            Position::create([
-                'position_name' => $faker->word,
+        foreach ($positions as $position) {
+            Position::firstOrCreate([
+                'position_name' => $position
             ]);
         }
     }

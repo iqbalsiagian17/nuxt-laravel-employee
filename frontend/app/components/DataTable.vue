@@ -54,7 +54,7 @@
 
     <!-- Pagination -->
     <nav v-if="totalPages > 1">
-      <ul class="pagination justify-content-center">
+      <ul class="pagination justify-content-center pagination-dark">
         <li class="page-item" :class="{ disabled: currentPage === 1 }">
           <a class="page-link" href="#" @click.prevent="goToPage(currentPage - 1)">Previous</a>
         </li>
@@ -71,6 +71,7 @@
         </li>
       </ul>
     </nav>
+
   </div>
 </template>
 
