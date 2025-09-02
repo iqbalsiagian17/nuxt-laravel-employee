@@ -86,6 +86,17 @@ npm install
 npm run dev
 ```
 
+4. Default Login after seeder
+
+```bash
+Email: admin@gmail.com
+Password: password
+```
+Make sure the backend is running and the database has been migrated & seeded so that the admin account is available.
+
+
+
+
 
 
 
