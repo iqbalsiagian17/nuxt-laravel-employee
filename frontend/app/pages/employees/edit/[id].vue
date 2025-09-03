@@ -6,31 +6,22 @@
 
         <form v-if="loaded" @submit.prevent="handleSubmit">
           <div class="row g-3">
-            <!-- Employee Number -->
             <div class="col-md-6">
               <label class="form-label">Nomor Pegawai</label>
               <input v-model="form.employee_number" type="text" class="form-control" />
             </div>
-
-            <!-- Full Name -->
             <div class="col-md-6">
               <label class="form-label">Nama Lengkap</label>
               <input v-model="form.full_name" type="text" class="form-control" />
             </div>
-
-            <!-- Birth Place -->
             <div class="col-md-6">
               <label class="form-label">Tempat Lahir</label>
               <input v-model="form.birth_place" type="text" class="form-control" />
             </div>
-
-            <!-- Birth Date -->
             <div class="col-md-6">
               <label class="form-label">Tanggal Lahir</label>
               <input v-model="form.birth_date" type="date" class="form-control" />
             </div>
-
-            <!-- Gender -->
             <div class="col-md-6">
               <label class="form-label d-block">Jenis Kelamin</label>
               <div class="d-flex gap-3">
@@ -38,8 +29,6 @@
                 <RadioButton id="gender-f" name="gender" label="Perempuan" value="F" v-model="form.gender" />
               </div>
             </div>
-
-            <!-- Workplace -->
             <div class="col-md-6">
               <label class="form-label">Tempat Kerja</label>
               <ComboBox
@@ -52,8 +41,6 @@
                 placeholder="-- Pilih Tempat Kerja --"
               />
             </div>
-
-            <!-- Rank -->
             <div class="col-md-4">
               <label class="form-label">Golongan</label>
               <ComboBox
@@ -68,14 +55,12 @@
                 placeholder="-- Pilih Golongan --"
               />
             </div>
-
-            <!-- Echelon -->
             <div class="col-md-4">
               <label class="form-label">Eselon</label>
               <ComboBox
                 v-model="form.echelon"
                 :options="[
-                  { value: '', label: '-- Kosong --' }, // opsi kosong
+                  { value: '', label: '-- Kosong --' },
                   'I', 'II', 'IIa', 'IIb', 
                   'III', 'IIIa', 'IIIb', 
                   'IV', 'IVa', 'IVb'
@@ -83,9 +68,6 @@
                 placeholder="-- Pilih Eselon --"
               />
             </div>
-
-
-            <!-- Religion -->
             <div class="col-md-4">
               <label class="form-label">Agama</label>
               <ComboBox
@@ -94,8 +76,6 @@
                 placeholder="-- Pilih Agama --"
               />
             </div>
-
-            <!-- Position -->
             <div class="col-md-4">
               <label class="form-label">Jabatan</label>
               <ComboBox
@@ -104,8 +84,6 @@
                 placeholder="-- Pilih Jabatan --"
               />
             </div>
-
-            <!-- Work Unit -->
             <div class="col-md-4">
               <label class="form-label">Unit Kerja</label>
               <ComboBox
@@ -114,26 +92,18 @@
                 placeholder="-- Pilih Unit Kerja --"
               />
             </div>
-
-            <!-- Address -->
             <div class="col-md-12">
               <label class="form-label">Alamat</label>
               <textarea v-model="form.address" class="form-control"></textarea>
             </div>
-
-            <!-- Phone -->
             <div class="col-md-6">
               <label class="form-label">Nomor Telepon</label>
               <input v-model="form.phone_number" type="text" class="form-control" />
             </div>
-
-            <!-- Tax -->
             <div class="col-md-6">
               <label class="form-label">Nomor Pajak</label>
               <input v-model="form.tax_number" type="text" class="form-control" />
             </div>
-
-            <!-- Foto Pegawai -->
             <div class="col-md-12">
               <label class="form-label">Foto Pegawai</label>
               <input type="file" class="form-control mb-2" @change="handleFileChange" />
@@ -143,8 +113,6 @@
               <button type="button" class="btn btn-warning mt-2" @click="uploadPhoto">Upload Foto</button>
             </div>
           </div>
-
-          <!-- Tombol Batal & Simpan -->
           <div class="mt-4 d-flex justify-content-between">
             <NuxtLink to="/employees" class="btn btn-secondary">← Batal</NuxtLink>
             <button class="btn btn-primary" type="submit">Simpan</button>
@@ -181,7 +149,7 @@ const form = ref({
   work_unit_id: "",
   phone_number: "",
   tax_number: "",
-  photo: "" // tambahkan untuk preview foto
+  photo: "" 
 })
 
 const message = ref("")
@@ -196,7 +164,6 @@ onMounted(async () => {
     const token = localStorage.getItem("token")
     const id = route.params.id
 
-    // fetch master data
     religions.value = await $fetch("http://localhost:8000/api/religions", {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -207,7 +174,6 @@ onMounted(async () => {
       headers: { Authorization: `Bearer ${token}` }
     })
 
-    // fetch employee detail
     const emp = await $fetch(`http://localhost:8000/api/employees/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
@@ -255,12 +221,10 @@ const handleSubmit = async () => {
   }
 }
 
-// handle pilih file
 const handleFileChange = (event) => {
   selectedFile.value = event.target.files[0]
 }
 
-// upload foto
 const uploadPhoto = async () => {
   if (!selectedFile.value) {
     message.value = "Silakan pilih foto terlebih dahulu"

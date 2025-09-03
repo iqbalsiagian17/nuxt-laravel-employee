@@ -49,7 +49,6 @@ const router = useRouter();
 const search = ref("");
 const selectedUnit = ref("");
 
-// 👉 bikin fungsi fetchEmployees
 const fetchEmployees = async () => {
   loading.value = true;
   try {
@@ -104,7 +103,6 @@ const columns = [
   { key: "employee_details.tax_number", label: "NPWP" }
 ];
 
-// 👉 fix deleteEmployee
 const deleteEmployee = async (id) => {
   if (!confirm("Yakin ingin menghapus employee ini?")) return;
 
@@ -112,7 +110,7 @@ const deleteEmployee = async (id) => {
     await api(`/employees/${id}`, {
       method: "DELETE"
     });
-    await fetchEmployees(); // panggil ulang biar data refresh
+    await fetchEmployees();
     alert("Employee berhasil dihapus");
   } catch (err) {
     console.error("Gagal hapus employee", err);
@@ -137,9 +135,8 @@ const printPdf = async () => {
   const { jsPDF } = await import("jspdf");
   const autoTable = (await import("jspdf-autotable")).default;
 
-  // Buat dokumen landscape
   const doc = new jsPDF({
-    orientation: "landscape", // <-- ini yang membuat landscape
+    orientation: "landscape", 
     unit: "pt",
     format: "a4"
   });
@@ -161,7 +158,7 @@ const printPdf = async () => {
     startY: 50,
     head: [tableColumn],
     body: tableRows,
-    styles: { fontSize: 10 }, // sedikit lebih besar karena landscape
+    styles: { fontSize: 10 },
     headStyles: { fillColor: [52, 73, 94] },
     theme: "grid"
   });

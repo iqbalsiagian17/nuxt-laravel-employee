@@ -2,7 +2,6 @@
   <div>
     <div class="table-responsive">
       <table class="table table-bordered table-striped table-hover align-middle">
-        <!-- Header -->
         <thead class="table-dark">
           <tr>
             <th v-for="col in columns" :key="col.key">{{ col.label }}</th>
@@ -10,14 +9,12 @@
           </tr>
         </thead>
 
-        <!-- Body -->
         <tbody>
           <tr v-for="row in paginatedRows" :key="row.id">
             <td v-for="col in columns" :key="col.key">
               {{ getValue(row, col.key) }}
             </td>
 
-            <!-- Tombol Aksi: titik tiga -->
             <td v-if="actions.length" class="text-center">
               <div class="dropdown position-static">
                 <button
@@ -52,7 +49,6 @@
       </table>
     </div>
 
-    <!-- Pagination -->
     <nav v-if="totalPages > 1">
       <ul class="pagination justify-content-center pagination-dark">
         <li class="page-item" :class="{ disabled: currentPage === 1 }">
@@ -82,7 +78,7 @@ const props = defineProps({
   columns: { type: Array, required: true },
   rows: { type: Array, required: true },
   perPage: { type: Number, default: 10 },
-  actions: { type: Array, default: () => [] } // contoh: { name:'view', label:'Lihat', icon:'bi bi-eye', handler:()=>{} }
+  actions: { type: Array, default: () => [] } 
 });
 
 const currentPage = ref(1);
@@ -105,7 +101,6 @@ function getValue(row, key) {
 </script>
 
 <style scoped>
-/* Tombol titik tiga lebih halus */
 .dropdown .btn {
   width: 32px;
   height: 32px;
@@ -114,7 +109,6 @@ function getValue(row, key) {
   line-height: 1;
 }
 
-/* Dropdown lebih minimalis */
 .dropdown-menu {
   min-width: 140px;
   font-size: 14px;

@@ -22,9 +22,7 @@ class WorkUnit extends Model
         return $this->belongsTo(WorkUnit::class, 'parent_id');
     }
 
-    /**
-     * Relasi ke children (anak-anak)
-     */
+
     public function children()
     {
         return $this->hasMany(WorkUnit::class, 'parent_id');

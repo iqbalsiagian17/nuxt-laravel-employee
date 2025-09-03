@@ -1,8 +1,6 @@
 <template>
   <div class="container mt-5">
     <h1 class="h3 mb-4">Daftar Unit Kerja</h1>
-
-    <!-- Toolbar -->
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
       <div class="d-flex gap-2">
         <button class="btn btn-secondary" @click="goBack">← Back to Dashboard</button>
@@ -18,8 +16,6 @@
         />
       </div>
     </div>
-
-    <!-- Loading / Table -->
     <div v-if="loading" class="alert alert-info">Loading...</div>
     <div v-else>
       <DataTable
@@ -44,14 +40,11 @@ const api = useApi();
 const router = useRouter();
 
 const search = ref("");
-
-// 👉 Fetch units
 const fetchUnits = async () => {
   loading.value = true;
   try {
     const res = await api("/work-units");
 
-    // Cek apakah response berbentuk object dengan data
     if (Array.isArray(res)) {
       units.value = res;
     } else if (res.data && Array.isArray(res.data)) {
@@ -72,7 +65,6 @@ const fetchUnits = async () => {
 
 onMounted(fetchUnits);
 
-// 👉 Filter
 const filteredUnits = computed(() =>
   units.value.filter(u =>
     u.unit_name.toLowerCase().includes(search.value.toLowerCase())
@@ -86,18 +78,16 @@ const unitsWithNo = computed(() =>
   }))
 );
 
-// 👉 Columns
 const columns = [
   { key: "no", label: "No" },
   { key: "unit_name", label: "Nama Unit Kerja" }
 ];
 
-// 👉 Delete
 const deleteUnit = async (id) => {
   if (!confirm("Yakin ingin menghapus unit kerja ini?")) return;
 
   try {
-    await api(`/work-units/${id}`, { method: "DELETE" }); // endpoint sesuai backend
+    await api(`/work-units/${id}`, { method: "DELETE" }); 
     await fetchUnits();
     alert("Unit kerja berhasil dihapus");
   } catch (err) {
@@ -106,13 +96,11 @@ const deleteUnit = async (id) => {
   }
 };
 
-// 👉 Actions table
 const tableActions = [
   { name: "edit", label: "Edit", handler: row => goEdit(row.id) },
   { name: "delete", label: "Hapus", handler: row => deleteUnit(row.id) }
 ];
 
-// 👉 Navigasi
 const goBack = () => router.push("/dashboard");
 const goCreate = () => router.push("/masterdata/unit-work/create");
 const goEdit = id => router.push(`/masterdata/unit-work/edit/${id}`);

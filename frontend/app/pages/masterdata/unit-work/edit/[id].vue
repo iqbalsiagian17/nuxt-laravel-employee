@@ -2,17 +2,13 @@
   <div class="container mt-4">
     <div v-if="loaded" class="card shadow-sm p-4">
       <h2 class="mb-4">Edit Unit Kerja</h2>
-
       <form @submit.prevent="handleSubmit">
         <div class="row g-3">
-          <!-- Nama Unit Kerja -->
           <div class="col-md-6">
             <label class="form-label">Nama Unit Kerja</label>
             <input v-model="form.unit_name" type="text" class="form-control" required />
           </div>
         </div>
-
-        <!-- Tombol Update & Batal -->
         <div class="mt-4 d-flex justify-content-end gap-2">
           <button class="btn btn-primary" type="submit">Update</button>
           <button class="btn btn-secondary" type="button" @click="goBack">Batal</button>
@@ -47,7 +43,6 @@ onMounted(async () => {
       headers: { Authorization: `Bearer ${token}` }
     })
 
-    // Aman untuk semua struktur: langsung object atau object.data
     const unitData = res.data || res
     form.value = { unit_name: unitData.unit_name }
     loaded.value = true

@@ -5,31 +5,26 @@
 
       <form @submit.prevent="handleSubmit">
         <div class="row g-3">
-          <!-- Nomor Pegawai -->
           <div class="col-md-6">
             <label class="form-label">Nomor Pegawai</label>
             <input v-model="form.employee_number" type="text" class="form-control" required />
           </div>
 
-          <!-- Nama Lengkap -->
           <div class="col-md-6">
             <label class="form-label">Nama Lengkap</label>
             <input v-model="form.full_name" type="text" class="form-control" required />
           </div>
 
-          <!-- Tempat Lahir -->
           <div class="col-md-6">
             <label class="form-label">Tempat Lahir</label>
             <input v-model="form.birth_place" type="text" class="form-control" required />
           </div>
 
-          <!-- Tanggal Lahir -->
           <div class="col-md-6">
             <label class="form-label">Tanggal Lahir</label>
             <input v-model="form.birth_date" type="date" class="form-control" required />
           </div>
 
-          <!-- Jenis Kelamin -->
           <div class="col-md-6">
             <label class="form-label d-block">Jenis Kelamin</label>
               <div class="d-flex gap-3">
@@ -38,7 +33,6 @@
               </div>
           </div>
 
-          <!-- Tempat Kerja -->
           <div class="col-md-6">
             <label class="form-label">Tempat Kerja</label>
             <ComboBox
@@ -52,7 +46,6 @@
             />
           </div>
 
-          <!-- Pangkat -->
           <div class="col-md-4">
             <label class="form-label">Golongan</label>
             <ComboBox
@@ -68,7 +61,6 @@
             />
           </div>
 
-          <!-- Eselon -->
           <div class="col-md-4">
             <label class="form-label">Eselon</label>
             <ComboBox
@@ -83,7 +75,6 @@
             />
           </div>
 
-          <!-- Agama -->
           <div class="col-md-4">
             <label class="form-label">Agama</label>
             <ComboBox
@@ -93,7 +84,6 @@
             />
           </div>
 
-          <!-- Jabatan -->
           <div class="col-md-4">
             <label class="form-label">Jabatan</label>
             <ComboBox
@@ -103,7 +93,6 @@
             />
           </div>
 
-          <!-- Unit Kerja -->
           <div class="col-md-4">
             <label class="form-label">Unit Kerja</label>
             <ComboBox
@@ -113,19 +102,16 @@
             />
           </div>
 
-          <!-- Alamat -->
           <div class="col-md-12">
             <label class="form-label">Alamat</label>
             <textarea v-model="form.address" class="form-control"></textarea>
           </div>
 
-          <!-- Nomor Telepon -->
           <div class="col-md-6">
             <label class="form-label">Nomor Telepon</label>
             <input v-model="form.phone_number" type="text" class="form-control" />
           </div>
 
-          <!-- Nomor Pajak -->
           <div class="col-md-6">
             <label class="form-label">Nomor Pajak</label>
             <input v-model="form.tax_number" type="text" class="form-control" />
@@ -139,7 +125,6 @@
 
       </form>
 
-      <!-- Pesan -->
       <div v-if="message" class="alert alert-info mt-3">
         {{ message }}
       </div>
@@ -178,18 +163,15 @@ const religions = ref([])
 const positions = ref([])
 const workUnits = ref([])
 
-// Fetch dropdown data (agama, jabatan, unit kerja)
 onMounted(async () => {
   try {
     const token = localStorage.getItem("token")
 
-    // Agama
     religions.value = await $fetch("http://localhost:8000/api/religions", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` }
     })
 
-    // Jabatan
     positions.value = (
       await $fetch("http://localhost:8000/api/positions", {
         method: "GET",
@@ -197,7 +179,6 @@ onMounted(async () => {
       })
     ).data
 
-    // Unit Kerja (sudah nested children)
     workUnits.value = await $fetch("http://localhost:8000/api/work-units", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` }
@@ -208,7 +189,6 @@ onMounted(async () => {
 })
 
 
-// Submit
 const handleSubmit = async () => {
   try {
     const token = localStorage.getItem("token")

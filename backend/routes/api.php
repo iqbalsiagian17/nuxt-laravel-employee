@@ -10,7 +10,6 @@ use App\Http\Controllers\Api\WorkUnitController;
 
 
 
-// Route publik (tanpa auth)
 Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::middleware(['auth:api'])->group(function () {

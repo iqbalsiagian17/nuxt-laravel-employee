@@ -8,18 +8,14 @@ use Illuminate\Http\Request;
 
 class WorkUnitController extends Controller
 {
-    /**
-     * Ambil semua unit kerja (flat list)
-     */
+
     public function index()
     {
         $units = WorkUnit::all();
         return response()->json($units);
     }
 
-    /**
-     * Tambah unit kerja baru
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -30,18 +26,13 @@ class WorkUnitController extends Controller
         return response()->json($unit, 201);
     }
 
-    /**
-     * Ambil detail unit kerja by ID
-     */
+
     public function show($id)
     {
         $unit = WorkUnit::findOrFail($id);
         return response()->json($unit);
     }
 
-    /**
-     * Update unit kerja
-     */
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -54,9 +45,7 @@ class WorkUnitController extends Controller
         return response()->json($unit);
     }
 
-    /**
-     * Hapus unit kerja
-     */
+
     public function destroy($id)
     {
         $unit = WorkUnit::findOrFail($id);

@@ -4,7 +4,7 @@ export const useApi = () => {
   return async (url, options = {}) => {
     const token = localStorage.getItem('token')
     const headers = {
-      Accept: 'application/json',    // 🔑 WAJIB
+      Accept: 'application/json',  
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `Bearer ${token}` } : {})
     }

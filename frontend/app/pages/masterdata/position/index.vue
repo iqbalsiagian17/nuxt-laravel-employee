@@ -1,14 +1,11 @@
 <template>
   <div class="container mt-5">
     <h1 class="h3 mb-4">Daftar Jabatan</h1>
-
-    <!-- Toolbar -->
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
       <div class="d-flex gap-2">
         <button class="btn btn-secondary" @click="goBack">← Back to Dashboard</button>
         <button class="btn btn-success" @click="goCreate">+ Tambah Jabatan</button>
       </div>
-
       <div class="d-flex gap-2">
         <input
           type="text"
@@ -18,8 +15,6 @@
         />
       </div>
     </div>
-
-    <!-- Loading / Table -->
     <div v-if="loading" class="alert alert-info">Loading...</div>
     <div v-else>
       <DataTable
@@ -45,7 +40,6 @@ const router = useRouter();
 
 const search = ref("");
 
-// 👉 Fetch positions
 const fetchPositions = async () => {
   loading.value = true;
   try {
@@ -61,7 +55,6 @@ const fetchPositions = async () => {
 
 onMounted(fetchPositions);
 
-// 👉 Filter
 const filteredPositions = computed(() =>
   positions.value.filter(p =>
     p.position_name.toLowerCase().includes(search.value.toLowerCase())
@@ -76,13 +69,11 @@ const positionsWithNo = computed(() =>
   }))
 );
 
-// 👉 Columns
 const columns = [
   { key: "no", label: "No" },
   { key: "position_name", label: "Nama Jabatan" }
 ];
 
-// 👉 Delete
 const deletePosition = async (id) => {
   if (!confirm("Yakin ingin menghapus jabatan ini?")) return;
 

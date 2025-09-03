@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class EmployeeController extends Controller
 {
-    // b. Upload Foto Pegawai
     public function uploadPhoto(Request $request, $id)
     {
         $employee = Employee::findOrFail($id);
 
         if ($request->hasFile('photo')) {
-            // simpan foto ke storage/app/public/employees
             $path = $request->file('photo')->store('employees', 'public');
             $employee->photo = $path;
             $employee->save();
@@ -30,14 +28,12 @@ class EmployeeController extends Controller
         return response()->json(['message' => 'Foto tidak ditemukan'], 400);
     }
 
-    // c. Melihat Daftar Pegawai
     public function index()
     {
         $employees = Employee::with(['religion', 'employeeDetails.position', 'employeeDetails.workUnit'])->get();
         return response()->json($employees);
     }
 
-    // f. Tambah Data Pegawai
     public function store(Request $request)
     {
         $request->validate([
@@ -85,7 +81,6 @@ class EmployeeController extends Controller
     }
 
 
-    // g. Ubah Data Pegawai
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -128,7 +123,6 @@ class EmployeeController extends Controller
                 'tax_number',
             ]));
         } else {
-            // kalau belum ada detail, buat baru
             EmployeeDetail::create(array_merge(
                 $request->only([
                     'position_id',
@@ -157,7 +151,6 @@ class EmployeeController extends Controller
         return response()->json($employee);
     }
 
-    // h. Hapus Data Pegawai
     public function destroy($id)
     {
         $employee = Employee::findOrFail($id);

@@ -1,17 +1,14 @@
 <template>
   <div class="container mt-5">
-    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h1 class="h3 fw-bold">Dashboard</h1>
       <button class="btn btn-danger" @click="logout">Keluar</button>
     </div>
 
-    <!-- Bagian Sambutan -->
     <div v-if="user" class="alert alert-success shadow-sm rounded-3">
       Selamat datang kembali, <strong>{{ user.name }}</strong>! 🎉
     </div>
 
-    <!-- Bagian Pegawai -->
     <h4 class="mt-4 mb-3">Pegawai</h4>
     <div class="row g-4">
       <div class="col-md-4">
@@ -28,7 +25,6 @@
       </div>
     </div>
 
-    <!-- Bagian Master Data -->
     <h4 class="mt-5 mb-3">Master Data</h4>
     <div class="row g-4">
       <!-- Agama -->
@@ -45,7 +41,6 @@
         </div>
       </div>
 
-      <!-- Jabatan -->
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100">
           <div class="card-body text-center">
@@ -59,7 +54,6 @@
         </div>
       </div>
 
-      <!-- Unit Kerja -->
       <div class="col-md-4">
         <div class="card shadow-sm border-0 h-100">
           <div class="card-body text-center">

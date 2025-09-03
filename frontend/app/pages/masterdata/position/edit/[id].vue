@@ -4,21 +4,17 @@
       <h2 class="mb-4">Edit Jabatan</h2>
         <form @submit.prevent="handleSubmit">
           <div class="row g-3">
-            <!-- Nama Jabatan -->
             <div class="col-md-6">
               <label class="form-label">Nama Jabatan</label>
               <input v-model="form.position_name" type="text" class="form-control" required />
             </div>
           </div>
-
-          <!-- Tombol Update & Batal -->
           <div class="mt-4 d-flex justify-content-end gap-2">
             <button class="btn btn-primary" type="submit">Update</button>
             <button class="btn btn-secondary" type="button" @click="goBack">Batal</button>
           </div>
         </form>
       </div>
-      <!-- Pesan Informasi -->
       <div v-if="message" class="alert alert-info mt-3">
         {{ message }}
       </div>

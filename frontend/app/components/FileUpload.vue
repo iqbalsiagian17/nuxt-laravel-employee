@@ -2,7 +2,6 @@
   <div class="card shadow-sm p-3">
     <h5 class="card-title">Upload File</h5>
     <form @submit.prevent="uploadFile">
-      <!-- Input file -->
       <div class="mb-3">
         <label for="file" class="form-label">Pilih File</label>
         <input
@@ -13,7 +12,6 @@
         />
       </div>
 
-      <!-- Progress -->
       <div v-if="progress > 0" class="progress mb-3">
         <div
           class="progress-bar"
@@ -27,14 +25,12 @@
         </div>
       </div>
 
-      <!-- Submit -->
       <button type="submit" class="btn btn-primary" :disabled="loading">
         <span v-if="loading" class="spinner-border spinner-border-sm me-2"></span>
         Upload
       </button>
     </form>
 
-    <!-- Success / Error message -->
     <div v-if="message" class="alert alert-info mt-3">
       {{ message }}
     </div>

@@ -8,7 +8,6 @@ use App\Models\Position;
 
 class PositionController extends Controller
 {
-    // Get all positions
     public function index()
     {
         $positions = Position::all();
@@ -18,7 +17,6 @@ class PositionController extends Controller
         ]);
     }
 
-    // Store new position
     public function store(Request $request)
     {
         $request->validate([
@@ -36,7 +34,6 @@ class PositionController extends Controller
         ], 201);
     }
 
-    // Show specific position
     public function show($id)
     {
         $position = Position::find($id);
@@ -54,7 +51,6 @@ class PositionController extends Controller
         ]);
     }
 
-    // Update position
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -81,7 +77,6 @@ class PositionController extends Controller
         ]);
     }
 
-    // Delete position
     public function destroy($id)
     {
         $position = Position::find($id);

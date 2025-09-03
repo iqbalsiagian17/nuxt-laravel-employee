@@ -1,15 +1,11 @@
 <template>
   <div class="container mb-5 mt-5">
     <h2 class="mb-4">Detail Pegawai</h2>
-
-    <!-- Loading & Error -->
     <div v-if="!loaded" class="alert alert-secondary">Loading...</div>
     <div v-if="message" class="alert alert-danger">{{ message }}</div>
 
     <div v-if="loaded && employee" class="card shadow-sm p-4">
       <div class="row g-4 align-items-start">
-    
-        <!-- Informasi Pegawai -->
         <div class="col-md-9">
           <table class="table mb-0">
             <tbody>
@@ -81,9 +77,6 @@
           </div>
         </div>
       </div>
-      
-
-      <!-- Tombol Back & Edit -->
       <div class="mt-4 d-flex justify-content-between">
         <NuxtLink to="/employees" class="btn btn-secondary">← Kembali</NuxtLink>
         <NuxtLink :to="`/employees/edit/${employee.id}`" class="btn btn-primary">Edit</NuxtLink>

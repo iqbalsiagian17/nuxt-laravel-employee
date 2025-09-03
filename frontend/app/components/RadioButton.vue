@@ -21,8 +21,8 @@ defineProps({
   name: String,
   value: [String, Number],
   label: String,
-  modelValue: [String, Number] // prop untuk v-model
+  modelValue: [String, Number]
 })
 
-defineEmits(['update:modelValue']) // emit event untuk update
+defineEmits(['update:modelValue']) 
 </script>
